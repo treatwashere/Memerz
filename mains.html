@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+<img src="">
+<h1 class="title">Meme Soundboard</h1>
+<p class="description">This Is Still In It's BETA! Will Also Soon Become A App & Website.</p>
+<a href="https://www.youtube.com/@treatwashere">Youtube Channel</a>
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/bruh.mp3')">Bruh</button>
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/oi,%20oi%20oe%20oi%20a%20eye%20eye.mp3')">oi, oi oe oi a eye eye</button>
+
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/faaah.mp3')">FAHHHHH</button>
+
+<button onclick="playSound('https://raw.githubusercontent.com/lilcodercode/Meme-Soundboard/refs/heads/main/applepay.mp3')">Apple Pay</button>
+
+<button onclick="playSound('https://raw.githubusercontent.com/lilcodercode/Meme-Soundboard/refs/heads/main/what-is-this-diddy-blud-doing-on-the.mp3')">What Is This Diddy Doing On The Calculator</button>
+
+
+<button onclick="playSound('https://raw.githubusercontent.com/lilcodercode/Meme-Soundboard/refs/heads/main/ive-got-this-faaaaaaaaahhhhh.mp3')">I Got This FAHHH</button>
+
+
+
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/rizz-sound-effect.mp3')">RIZZ</button>
+
+
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/kim-jong-un-is-master-of-g00n.mp3')">Kim Jung Oon Is A Master Of Goon</button>
+
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/ack.mp3')">ACK</button>
+
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/vine-boom.mp3')">Vine Boom</button>
+
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/youre-phone-is-ringing.mp3')">your phone ringing</button>
+
+
+<button onclick="playSound('https://github.com/lilcodercode/Meme-Soundboard/raw/refs/heads/main/coca-cola-espuma.mp3')">COCA COLA ESPUMA</button>
+
+
+<hr>
+
+<button onclick="stopAllSounds()" style="background-color: #ff4c4c; color: white;">
+  🛑 STOP ALL SOUNDS
+</button>
+
+<script>
+  // This array keeps track of all sounds currently playing
+  let activeSounds = [];
+
+  function playSound(file) {
+    const audio = new Audio(file);
+    
+    // Add this sound to our tracking list
+    activeSounds.push(audio);
+    
+    // When the sound finishes, remove it from the list to save memory
+    audio.onended = function() {
+      activeSounds = activeSounds.filter(s => s !== audio);
+    };
+
+    audio.play();
+  }
+
+  function stopAllSounds() {
+    // Loop through every sound in our list and stop it
+    activeSounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0; // Reset to the beginning
+    });
+
+    // Clear the array since everything is stopped
+    activeSounds = [];
+  }
+</script>
