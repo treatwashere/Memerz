@@ -16,7 +16,7 @@ a {
 .title{
   text-align: center;
   font-family: Arial;
-  text-color: #ff0000
+  text-color: white
 }
 
 button{
@@ -28,6 +28,6 @@ button{
 
 .description{
   text-align: center;
-  text-color: #ff0000;
+  text-color: white;
   font-family: Arial
 }
