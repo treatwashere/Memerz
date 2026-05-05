@@ -1,3 +1,7 @@
+img {
+  border-radius: 10px;
+} 
+
 body{
   background-color: darkblue
 }
@@ -10,13 +14,13 @@ a {
   display: block;
   text-align: center;
   margin: 10px;
-  color: white;
+  color: white
 }
 
 .title{
   text-align: center;
   font-family: Arial;
-  text-color: white
+  color: white
 }
 
 button{
