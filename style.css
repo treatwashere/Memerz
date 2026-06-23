@@ -18,7 +18,9 @@ a {
   color: white
 }
 
-
+.translation {
+  background-color: transparent;
+} 
   
 .GitHub {
   background-color: transparent;
