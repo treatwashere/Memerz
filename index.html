@@ -4,70 +4,15 @@
     <title></title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="script.js">
-    <script class=translation type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_aea0c8d91e5fbd78aaf4f0145c43eba05'
-    });
 </script>
   </head>
   <body>
     <script src="script.js"></script>
   </body>
 </html>
-
-<div class="translate-dropdown">
-  <div id="google_translate_element" style="display:none;"></div>
-
-  <button class="extra-btn" onclick="changeLanguage('en')">English</button>
-  <button class="extra-btn" onclick="changeLanguage('es')">Español</button>
-  <button class="extra-btn" onclick="changeLanguage('fr')">Français</button>
-  <button class="extra-btn" onclick="changeLanguage('de')">Deutsch</button>
-  <button class="extra-btn" onclick="changeLanguage('ja')">日本語</button>
-</div>
-
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script>
-function googleTranslateElementInit() { 
-    new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,es,fr,de,ja', 
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE 
-    }, 'google_translate_element'); 
-}
-
-// THE NEW MAGIC FUNCTION: Tells Google to switch languages when your button is clicked
-function changeLanguage(langCode) {
-    var selectElement = document.querySelector('.goog-te-combo');
-    if (selectElement) {
-        selectElement.value = langCode;
-        // Tell the browser that the choice was changed so Google processes it
-        selectElement.dispatchEvent(new Event('change'));
-    }
-}
-</script>
-
-<style>
-  .translate-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: sans-serif;
-  }
-  .extra-btn {
-    padding: 8px 16px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background 0.2s;
-  }
-  .extra-btn:hover {
-    background-color: #e0e0e0;
-  }
-</style>
-
+<div class="gtranslate_wrapper"></div>
+<script>window.gtranslateSettings = {"default_language":"en","native_language_names":true,"languages":["en","fr","it","es","nl","fi","ja","pt","sv","ru","uk"],"wrapper_selector":".gtranslate_wrapper","horizontal_position":"left","vertical_position":"bottom","select_language_label":"L-G"}</script>
+<script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
 <img src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/All%20Logos.png"width="150">
 <a class=GitHub href="https://github.com/treatwashere/Meme-Soundboard" style="position: absolute; top: 0.5em; right: 0.5em"><img src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/GitHub_Invertocat_Black_Clearspace.png" style="height:2em;"></a>
 <h1 class="title">Meme Soundboard</h1>
