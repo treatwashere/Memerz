@@ -46,6 +46,7 @@
         margin: 0 auto 15px auto;
         max-width: 150px;
         height: auto;
+        border-radius: 10px;
       }
 
       .title {
@@ -142,7 +143,19 @@
     </style>
   </head>
   <body>
+<script>
+  let currentAudio = null;
 
+function playSound(file) {
+  if (currentAudio) {
+    currentAudio.pause(); // Stop the old one
+  }
+  currentAudio = new Audio(file);
+  currentAudio.play();
+}
+
+console.log("Javascript loaded!")
+</script>
     <!-- Main Website Device Frame Panel -->
     <div class="soundboard-frame">
       
