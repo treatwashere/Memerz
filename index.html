@@ -1,12 +1,12 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memerz - Meme Soundboard (BETA)</title>
-    
+    <link rel="icon" type="image/png" href="All Logos.png">
     <style>
-      /* --- WEBSITE DEVICE FRAMING STYLES --- */
+      /* --- CLEAN DEVICE FRAMING STYLES (NO BROWSER CHROME / NO ADDRESS BAR) --- */
       body {
         margin: 0;
         padding: 40px 20px;
@@ -20,64 +20,19 @@
         box-sizing: border-box;
       }
 
-      /* The Browser Container Mockup */
-      .browser-frame {
+      /* Clean Website Frame Container */
+      .soundboard-frame {
         width: 100%;
         max-width: 900px;
-        background: #ffffff;
+        background: #fafafa;
         border-radius: 12px;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
         border: 1px solid #334155;
-      }
-
-      /* Browser Header Bar */
-      .browser-header {
-        background: #f1f5f9;
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid #e2e8f0;
-        position: relative;
-      }
-
-      /* Window Control Dots */
-      .window-dots {
-        display: flex;
-        gap: 8px;
-        margin-right: 16px;
-      }
-      .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
-      }
-      .dot.red { background: #ef4444; }
-      .dot.yellow { background: #eab308; }
-      .dot.green { background: #22c55e; }
-
-      /* Browser Address Bar */
-      .address-bar {
-        background: #ffffff;
-        color: #64748b;
-        font-size: 13px;
-        padding: 6px 16px;
-        border-radius: 6px;
-        flex-grow: 1;
-        max-width: 500px;
-        margin: 0 auto;
-        text-align: center;
-        border: 1px solid #e2e8f0;
-        user-select: none;
-      }
-
-      /* --- SOUNDBOARD CONTENT STYLES --- */
-      .browser-content {
-        padding: 30px;
-        max-height: 70vh;
+        padding: 40px 30px 30px 30px;
+        max-height: 85vh;
         overflow-y: auto;
-        background: #fafafa;
+        position: relative;
+        box-sizing: border-box;
       }
 
       .header-area {
@@ -119,7 +74,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 12px;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
       }
 
       /* Grid Buttons */
@@ -151,142 +106,138 @@
         transform: translateY(0);
       }
 
-      /* Control Toolbar */
-      .controls-bar {
-        border-top: 1px solid #e2e8f0;
-        padding-top: 20px;
-        text-align: center;
+      /* --- VERCEL DOCK STYLE DRAGGABLE BUTTON --- */
+      .floating-toolbar {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 56px;
+        height: 56px;
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        cursor: grab;
+        z-index: 9999;
+        user-select: none;
+        touch-action: none; /* Prevents viewport jumping/scrolling while dragging */
+        transition: border-color 0.2s, transform 0.1s ease;
       }
 
-      .stop-btn {
-        background-color: #ef4444 !important;
-        color: white !important;
-        border: none !important;
-        padding: 12px 30px !important;
-        font-size: 1rem !important;
-        font-weight: 700 !important;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.2s;
-        box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+      .floating-toolbar:hover {
+        border-color: rgba(239, 68, 68, 0.6);
+        transform: scale(1.05);
       }
 
-      .stop-btn:hover {
-        background-color: #dc2626 !important;
+      .floating-toolbar:active {
+        cursor: grabbing;
+        transform: scale(0.95);
       }
     </style>
   </head>
   <body>
 
-    <!-- Device Window Frame Wrapper -->
-    <div class="browser-frame">
+    <!-- Main Website Device Frame Panel -->
+    <div class="soundboard-frame">
       
-      <!-- Top Window Bar -->
-      <div class="browser-header">
-        <div class="window-dots">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
+      <!-- GitHub icon pinned cleanly inside the frame layout -->
+      <a class="GitHub" href="https://github.com/treatwashere/Meme-Soundboard" style="position: absolute; right: 20px; top: 20px;" target="_blank">
+        <img src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/GitHub_Invertocat_Black_Clearspace.png" style="height:2em; display:block;">
+      </a>
+
+      <!-- Elfsight App Widget Integration -->
+      <div class="elfsight-app-63ed6d70-ac6b-4625-aff9-a7a195f194ff" data-elfsight-app-lazy></div>
+
+      <div class="header-area">
+        <img class="logo" src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/All%20Logos.png" alt="Memerz Logo">
+        <h1 class="title">Memerz</h1>
+        <p class="description">This Is Still In BETA! Will Also Soon Become An App & Website.</p>
+        <div class="nav-links">
+          <a href="https://www.youtube.com/@treatwashere" target="_blank">📺 Visit YouTube Channel</a>
         </div>
-        <div class="address-bar">https://treatwashere.github.io/memerz</div>
-        
-        <!-- GitHub icon placed contextually within the bar -->
-        <a class="GitHub" href="https://github.com/treatwashere/Meme-Soundboard" style="position: absolute; right: 16px; top: 9px;" target="_blank">
-          <img src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/GitHub_Invertocat_Black_Clearspace.png" style="height:1.8em; display:block;">
-        </a>
       </div>
 
-      <!-- Main Web Content Display -->
-      <div class="browser-content">
-        
-        <!-- Elfsight App Integrated inside frame -->
-        <div class="elfsight-app-63ed6d70-ac6b-4625-aff9-a7a195f194ff" data-elfsight-app-lazy></div>
-
-        <div class="header-area">
-          <img class="logo" src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/All%20Logos.png" alt="Memerz Logo">
-          <h1 class="title">Memerz</h1>
-          <p class="description">This Is Still In BETA! Will Also Soon Become An App & Website.</p>
-          <div class="nav-links">
-            <a href="https://www.youtube.com/@treatwashere" target="_blank">📺 Visit YouTube Channel</a>
-          </div>
-        </div>
-
-        <!-- Soundboard Grid -->
-        <div class="soundboard-grid">
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/bruh.mp3')">Bruh</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/oi,%20oi%20oe%20oi%20a%20eye%20eye.mp3')">oi, oi oe oi a eye eye</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/faaah.mp3')">FAHHHHH</button>
-          <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/applepay.mp3')">Apple Pay</button>
-          <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/what-is-this-diddy-blud-doing-on-the.mp3')">What Is This Diddy Doing On The Calculator</button>
-          <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/ive-got-this-faaaaaaaaahhhhh.mp3')">I Got This FAHHH</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/rizz-sound-effect.mp3')">RIZZ</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/kim-jong-un-is-master-of-g00n.mp3')">Kim Jung Oon Is A Master Of Goon</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/ack.mp3')">ACK</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/vine-boom.mp3')">Vine Boom</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/youre-phone-is-ringing.mp3')">your phone ringing</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/coca-cola-espuma.mp3')">COCA COLA ESPUMA</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/treat%20washere%20-%20NOTHING%20BEATS%20A%20JET%202%20HOLIDAY!%202026-05-03%2014_26.m4a')">JET 2 HOLIDAY</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/67_SQlv2Xv.mp3')">67</button>
-          <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/My%20Movie%2042.mp3')">BAKAAA</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/tuco-get-out.mp3')">GET OUT</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/a-few-moments-later-sponge-bob-sfx-fun.mp3')">A few moments later</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/add-butter-add-butter.mp3')">Add butter</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/and-his-name-is-john-cena.mp3')">John Cena</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/ankle-snap.mp3')">Ankle Break</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/auugghhhhhhhhh.mp3')">auughh</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/dexter-meme.mp3')">dexter meme</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/discord-call-soundd.mp3')">discord call</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/discord-notification.mp3')">discord notify</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/doom-eternal.mp3')">DOOM</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/duolingo-correct.mp3')">duolingo ding</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/fail-sound-effect.mp3')">fail</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/galaxy-meme.mp3')">galaxy</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/gopgopgop.mp3')">gulp gulp gulp</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/i-just-hit-the-jackpot.mp3')">i just hit the jackpot</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/i-want-you-crying-for-me-roblox-sfx.mp3')">i want you crying for me</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/ialwayscomeback.mp3')">i always come back</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/indian-song.mp3')">dingalingaling</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/long-brain-fart.mp3')">big fart</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/metal-pipe-clang.mp3')">metal pipe</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/michael-jackson-hee-hee.mp3')">hee hee</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/my-mommy-said-no-more-skibidi-toilet.mp3')">no more skibidi toilet</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/nice shot.mp3')">wii nice shot!</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/oh-my-god-bro-oh-hell-nah-man.mp3')">omg bro</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/omg-is-that-freddy-fazbear.mp3')">is that freddy fazbear?</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/plankton-groan.mp3')">plankton moan</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/playstation2-startup-sound.mp3')">ps2 startup sound</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/rickroll.mp3')">rickroll</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/rip-my-granny.mp3')">rip my granny</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/show-me-your-willy_7lihYOX.mp3')">show me your willy</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/tactical-nuke.mp3')">tactical nuke incoming</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/wait-whered-you-get-that-piano_FfONCac.mp3')">whered you get that piano?</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/du-bist-gut-genug.mp3')">du bist gut genug</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/dun-dun.mp3')">dun dun dun</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/i-sh-t-my-pants-aldi.mp3')">i sh#t my pants aldi</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/kids-saying-yay-sound-effect_3.mp3')">yayyy!</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/oh-my-god-meme.mp3')">ohhh myyy gawdddd</button>
-          <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/sad-meow-song.mp3')">meow meow meow meow</button>
-          <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/spiderman-meme-song.mp3')">spiderman meme song</button>
-          <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/romanceeeeeeeeeeeeee.mp3')">romance song</button>
-          <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/yeah-boiii-i-i-i.mp3')">yeah boi song</button>
-          <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/obi-wan-hello-there.mp3')">hello there meme</button>
-          <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/fortnite-death.mp3')">fortnite death sound</button>
-          <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/error-sound.mp3')">error sound</button>
-          <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/baby-laughing-meme.mp3')">AI Baby laughing</button>
-        </div>
-
-        <!-- Global Action Toolbar -->
-        <div class="controls-bar">
-          <button onclick="stopAllSounds()" class="stop-btn">🛑 STOP ALL SOUNDS</button>
-        </div>
-
+      <!-- Soundboard Dynamic Grid Layout -->
+      <div class="soundboard-grid">
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/bruh.mp3')">Bruh</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/oi,%20oi%20oe%20oi%20a%20eye%20eye.mp3')">oi, oi oe oi a eye eye</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/faaah.mp3')">FAHHHHH</button>
+        <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/applepay.mp3')">Apple Pay</button>
+        <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/what-is-this-diddy-blud-doing-on-the.mp3')">What Is This Diddy Doing On The Calculator</button>
+        <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/ive-got-this-faaaaaaaaahhhhh.mp3')">I Got This FAHHH</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/rizz-sound-effect.mp3')">RIZZ</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/kim-jong-un-is-master-of-g00n.mp3')">Kim Jung Oon Is A Master Of Goon</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/ack.mp3')">ACK</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/vine-boom.mp3')">Vine Boom</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/youre-phone-is-ringing.mp3')">your phone ringing</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/coca-cola-espuma.mp3')">COCA COLA ESPUMA</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/treat%20washere%20-%20NOTHING%20BEATS%20A%20JET%202%20HOLIDAY!%202026-05-03%2014_26.m4a')">JET 2 HOLIDAY</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/67_SQlv2Xv.mp3')">67</button>
+        <button onclick="playSound('https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/My%20Movie%2042.mp3')">BAKAAA</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/tuco-get-out.mp3')">GET OUT</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/a-few-moments-later-sponge-bob-sfx-fun.mp3')">A few moments later</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/add-butter-add-butter.mp3')">Add butter</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/and-his-name-is-john-cena.mp3')">John Cena</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/ankle-snap.mp3')">Ankle Break</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/auugghhhhhhhhh.mp3')">auughh</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/dexter-meme.mp3')">dexter meme</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/discord-call-soundd.mp3')">discord call</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/discord-notification.mp3')">discord notify</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/doom-eternal.mp3')">DOOM</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/duolingo-correct.mp3')">duolingo ding</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/fail-sound-effect.mp3')">fail</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/galaxy-meme.mp3')">galaxy</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/gopgopgop.mp3')">gulp gulp gulp</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/i-just-hit-the-jackpot.mp3')">i just hit the jackpot</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/i-want-you-crying-for-me-roblox-sfx.mp3')">i want you crying for me</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/ialwayscomeback.mp3')">i always come back</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/indian-song.mp3')">dingalingaling</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/long-brain-fart.mp3')">big fart</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/metal-pipe-clang.mp3')">metal pipe</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/michael-jackson-hee-hee.mp3')">hee hee</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/my-mommy-said-no-more-skibidi-toilet.mp3')">no more skibidi toilet</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/nice shot.mp3')">wii nice shot!</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/oh-my-god-bro-oh-hell-nah-man.mp3')">omg bro</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/omg-is-that-freddy-fazbear.mp3')">is that freddy fazbear?</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/plankton-groan.mp3')">plankton moan</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/playstation2-startup-sound.mp3')">ps2 startup sound</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/rickroll.mp3')">rickroll</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/rip-my-granny.mp3')">rip my granny</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/show-me-your-willy_7lihYOX.mp3')">show me your willy</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/tactical-nuke.mp3')">tactical nuke incoming</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/wait-whered-you-get-that-piano_FfONCac.mp3')">whered you get that piano?</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/du-bist-gut-genug.mp3')">du bist gut genug</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/dun-dun.mp3')">dun dun dun</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/i-sh-t-my-pants-aldi.mp3')">i sh#t my pants aldi</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/kids-saying-yay-sound-effect_3.mp3')">yayyy!</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/oh-my-god-meme.mp3')">ohhh myyy gawdddd</button>
+        <button onclick="playSound('https://github.com/treatwashere/Meme-Soundboard/raw/refs/heads/main/sad-meow-song.mp3')">meow meow meow meow</button>
+        <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/spiderman-meme-song.mp3')">spiderman meme song</button>
+        <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/romanceeeeeeeeeeeeee.mp3')">romance song</button>
+        <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/yeah-boiii-i-i-i.mp3')">yeah boi song</button>
+        <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/obi-wan-hello-there.mp3')">hello there meme</button>
+        <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/fortnite-death.mp3')">fortnite death sound</button>
+        <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/error-sound.mp3')">error sound</button>
+        <button onclick="playSound('https://github.com/treatwashere/Memerz/raw/refs/heads/main/baby-laughing-meme.mp3')">AI Baby laughing</button>
       </div>
+
     </div>
+
+    <!-- Fixed Vercel Floating Button Docks Globally On Page -->
+    <button id="floating-toolbar" class="floating-toolbar" title="Drag to re-position. Click to stop all sounds.">
+      🛑
+    </button>
 
     <!-- Scripts CDN -->
     <script src="https://elfsightcdn.com/platform.js" async></script>
     
-    <!-- Sound Processing Logic -->
+    <!-- Sound Processing & Bulletproof Dragging System Logic -->
     <script>
       let activeSounds = [];
 
@@ -308,6 +259,60 @@
         });
         activeSounds = [];
       }
+
+      /* --- FIXED FLUID TRANSFORMS DRAG LOGIC --- */
+      const toolbar = document.getElementById('floating-toolbar');
+      let isDragging = false;
+      let gestureMoved = false;
+      
+      let startX = 0, startY = 0;         // Starting positions relative to viewport
+      let transformX = 0, transformY = 0; // Stored layout transform coordinates
+      let dragStartX = 0, dragStartY = 0; // Detect precise click vs drag delta shifts
+
+      // Universal pointer tracker handles Mouse + Touch seamlessly
+      toolbar.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        gestureMoved = false;
+        
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        
+        startX = e.clientX - transformX;
+        startY = e.clientY - transformY;
+        
+        toolbar.setPointerCapture(e.pointerId);
+        toolbar.style.transition = 'none'; // Lock animations while finger/mouse moves
+      });
+
+      toolbar.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        
+        // Track absolute drag distance travel path
+        const totalDistance = Math.sqrt(Math.pow(e.clientX - dragStartX, 2) + Math.pow(e.clientY - dragStartY, 2));
+        if (totalDistance > 5) {
+          gestureMoved = true;
+        }
+        
+        transformX = e.clientX - startX;
+        transformY = e.clientY - startY;
+        
+        // Update hardware accelerated positions cleanly
+        toolbar.style.transform = `translate(${transformX}px, ${transformY}px)`;
+      });
+
+      toolbar.addEventListener('pointerup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        toolbar.releasePointerCapture(e.pointerId);
+        
+        // Re-inject smooth interactions upon drag release
+        toolbar.style.transition = 'transform 0.1s ease, border-color 0.2s';
+        
+        // Only run action if the user intended a quick click, not a moving drag sequence
+        if (!gestureMoved) {
+          stopAllSounds();
+        }
+      });
     </script>
   </body>
 </html>
