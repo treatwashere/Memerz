@@ -1,12 +1,12 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memerz - Meme Soundboard (BETA)</title>
-    <link rel="icon" type="image/png" href="All Logos.png">
+    
     <style>
-      /* --- CLEAN DEVICE FRAMING STYLES --- */
+      /* --- WEBSITE DEVICE FRAMING STYLES --- */
       body {
         margin: 0;
         padding: 40px 20px;
@@ -20,23 +20,64 @@
         box-sizing: border-box;
       }
 
-      /* Clean App Container Frame */
-      .app-frame {
+      /* The Browser Container Mockup */
+      .browser-frame {
         width: 100%;
         max-width: 900px;
-        background: #fafafa;
+        background: #ffffff;
         border-radius: 12px;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         overflow: hidden;
         border: 1px solid #334155;
       }
 
-      /* Main Web Content Display */
-      .app-content {
-        padding: 40px 30px 30px 30px;
-        max-height: 80vh;
+      /* Browser Header Bar */
+      .browser-header {
+        background: #f1f5f9;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #e2e8f0;
+        position: relative;
+      }
+
+      /* Window Control Dots */
+      .window-dots {
+        display: flex;
+        gap: 8px;
+        margin-right: 16px;
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .dot.red { background: #ef4444; }
+      .dot.yellow { background: #eab308; }
+      .dot.green { background: #22c55e; }
+
+      /* Browser Address Bar */
+      .address-bar {
+        background: #ffffff;
+        color: #64748b;
+        font-size: 13px;
+        padding: 6px 16px;
+        border-radius: 6px;
+        flex-grow: 1;
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        user-select: none;
+      }
+
+      /* --- SOUNDBOARD CONTENT STYLES --- */
+      .browser-content {
+        padding: 30px;
+        max-height: 70vh;
         overflow-y: auto;
-        position: relative; /* Allows absolute positioning for GitHub icon */
+        background: #fafafa;
       }
 
       .header-area {
@@ -50,7 +91,6 @@
         margin: 0 auto 15px auto;
         max-width: 150px;
         height: auto;
-        border-radius: 10px;
       }
 
       .title {
@@ -135,38 +175,30 @@
         background-color: #dc2626 !important;
       }
     </style>
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
 
-<script>
-  let currentAudio = null;
-
-function playSound(file) {
-  if (currentAudio) {
-    currentAudio.pause(); // Stop the old one
-  }
-  currentAudio = new Audio(file);
-  currentAudio.play();
-}
-
-console.log("Javascript loaded!")
-</script>
-    
     <!-- Device Window Frame Wrapper -->
-    <div class="app-frame">
+    <div class="browser-frame">
       
-      <!-- Main Web Content Display -->
-      <div class="app-content">
+      <!-- Top Window Bar -->
+      <div class="browser-header">
+        <div class="window-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="address-bar">https://treatwashere.github.io/memerz</div>
         
-        <!-- GitHub icon placed in the top right corner of the frame -->
-        <a class="GitHub" href="https://github.com/treatwashere/Meme-Soundboard" style="position: absolute; right: 20px; top: 20px;" target="_blank">
-          <img src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/GitHub_Invertocat_Black_Clearspace.png" style="height:2em; display:block;">
+        <!-- GitHub icon placed contextually within the bar -->
+        <a class="GitHub" href="https://github.com/treatwashere/Meme-Soundboard" style="position: absolute; right: 16px; top: 9px;" target="_blank">
+          <img src="https://raw.githubusercontent.com/treatwashere/Meme-Soundboard/refs/heads/main/GitHub_Invertocat_Black_Clearspace.png" style="height:1.8em; display:block;">
         </a>
+      </div>
 
+      <!-- Main Web Content Display -->
+      <div class="browser-content">
+        
         <!-- Elfsight App Integrated inside frame -->
         <div class="elfsight-app-63ed6d70-ac6b-4625-aff9-a7a195f194ff" data-elfsight-app-lazy></div>
 
