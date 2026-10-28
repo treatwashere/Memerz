@@ -31,10 +31,10 @@
       if (parsed.hostname === "raw.githubusercontent.com") {
         const parts = parsed.pathname.split("/").filter(Boolean);
         const owner = parts.shift(), repo = parts.shift();
-        return "https://github.com/" + owner + "/" + repo + "/blob/" + parts.map(encodeURIComponent).join("/");
+        return "https://github.com/" + owner + "/" + repo + "/raw/refs/heads/main/" + parts.map(encodeURIComponent).join("/");
       }
       if (parsed.hostname === "github.com" && parsed.pathname.includes("/raw/")) {
-        return parsed.origin + parsed.pathname.replace("/raw/", "/blob/");
+        return parsed.origin + parsed.pathname;
       }
       return url;
     } catch (_) { return url; }
@@ -100,12 +100,15 @@
 
       const mobile = document.createElement("a");
       mobile.className = "dl-btn dl-mobile";
-      mobile.href = blobPageUrl(url);
-      mobile.target = "_blank";
-      mobile.rel = "noopener noreferrer";
-      mobile.title = "Open " + name + " download page";
-      mobile.setAttribute("aria-label", "Open " + name + " download page");
+      mobile.href = "#";
+      mobile.title = "Download " + name;
+      mobile.setAttribute("aria-label", "Download " + name);
       mobile.innerHTML = '<i class="bx bx-arrow-to-bottom" aria-hidden="true"></i>';
+      mobile.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        saveFile(url, fileNameOf(url), mobile);
+      });
       wrap.appendChild(mobile);
     });
   }
