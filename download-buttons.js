@@ -1,131 +1,118 @@
-/* --- MEMERZ: PER-SOUND DOWNLOAD BUTTONS --- */
-/*
-Adds a download control next to every sound button (and nothing else).
-Tablets and computers get the boxicons arrow-to-bottom button, which saves
-the audio file straight to the device. Phones show the same icon, but it
-opens the file on GitHub where mobile browsers can save it properly.
-*/
+/* MEMERZ: working per-sound download buttons */
 (function () {
+  "use strict";
 
-/* Pulls the audio URL out of the button's onclick="playSound('...')" call. */
-function urlOf(btn) {
-var attr = btn.getAttribute('onclick') || '';
-var start = attr.indexOf("('");
-var end = attr.indexOf("')", start);
-if (start === -1 || end === -1) return null;
-return attr.slice(start + 2, end);
-}
+  function urlOf(button) {
+    const attr = button.getAttribute("onclick") || "";
+    const match = attr.match(/playSound\(\s*(['"])(.*?)\1\s*\)/);
+    if (!match) return null;
+    try { return match[2].replace(/&amp;/g, "&"); } catch (_) { return match[2]; }
+  }
 
-/* Filename to save the download as. */
-function fileNameOf(url) {
-var last = url.split('/').pop().split('?')[0].split('#')[0];
-try {
-return decodeURIComponent(last);
-} catch (e) {
-return last;
-}
-}
+  function rawUrl(url) {
+    try {
+      const parsed = new URL(url, window.location.href);
+      if (parsed.hostname === "github.com") {
+        const parts = parsed.pathname.split("/").filter(Boolean);
+        const rawIndex = parts.indexOf("raw");
+        if (rawIndex > 1) {
+          const owner = parts[0], repo = parts[1];
+          const filePath = parts.slice(rawIndex + 1);
+          return "https://raw.githubusercontent.com/" + owner + "/" + repo + "/" + filePath.map(encodeURIComponent).join("/");
+        }
+      }
+      return url;
+    } catch (_) { return url; }
+  }
 
-/* github.com/owner/repo/raw/... -> raw.githubusercontent.com/owner/repo/... */
-/* The raw host sends CORS headers, so fetch() can read the file. */
-function rawUrl(url) {
-if (url.indexOf('https://github.com/') !== 0) return url;
-var parts = url.split('/raw/');
-if (parts.length < 2) return url;
-var repo = parts[0].replace('https://github.com/', '');
-return 'https://raw.githubusercontent.com/' + repo + '/' + parts.slice(1).join('/raw/');
-}
+  function blobPageUrl(url) {
+    try {
+      const parsed = new URL(url, window.location.href);
+      if (parsed.hostname === "raw.githubusercontent.com") {
+        const parts = parsed.pathname.split("/").filter(Boolean);
+        const owner = parts.shift(), repo = parts.shift();
+        return "https://github.com/" + owner + "/" + repo + "/blob/" + parts.map(encodeURIComponent).join("/");
+      }
+      if (parsed.hostname === "github.com" && parsed.pathname.includes("/raw/")) {
+        return parsed.origin + parsed.pathname.replace("/raw/", "/blob/");
+      }
+      return url;
+    } catch (_) { return url; }
+  }
 
-/* The GitHub page for the file, used by the phone button. */
-function blobPageUrl(url) {
-var prefix = 'https://raw.githubusercontent.com/';
-if (url.indexOf(prefix) === 0) {
-var bits = url.slice(prefix.length).split('/');
-var owner = bits.shift();
-var repo = bits.shift();
-return 'https://github.com/' + owner + '/' + repo + '/blob/' + bits.join('/');
-}
-return url.replace('/raw/', '/blob/');
-}
+  function fileNameOf(url) {
+    try {
+      const path = new URL(url, window.location.href).pathname;
+      return decodeURIComponent(path.split("/").pop() || "sound");
+    } catch (_) { return "sound"; }
+  }
 
-/* Fetches the audio and saves it, falling back to GitHub if that is blocked. */
-function saveFile(url, name, btn) {
-btn.classList.add('dl-busy');
-fetch(rawUrl(url))
-.then(function (res) {
-if (!res.ok) throw new Error('HTTP ' + res.status);
-return res.blob();
-})
-.then(function (blob) {
-var href = URL.createObjectURL(blob);
-var a = document.createElement('a');
-a.href = href;
-a.download = name;
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-setTimeout(function () {
-URL.revokeObjectURL(href);
-}, 1000);
-})
-.catch(function (err) {
-console.log('Download fallback: ', err);
-window.open(blobPageUrl(url), '_blank', 'noopener');
-})
-.then(function () {
-btn.classList.remove('dl-busy');
-});
-}
+  async function saveFile(url, name, button) {
+    button.classList.add("dl-busy");
+    button.setAttribute("aria-busy", "true");
+    try {
+      const response = await fetch(rawUrl(url));
+      if (!response.ok) throw new Error("Download failed: " + response.status);
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = name || fileNameOf(url);
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 30000);
+    } catch (error) {
+      console.warn("Direct download unavailable; opening the file page instead.", error);
+      window.open(blobPageUrl(url), "_blank", "noopener,noreferrer");
+    } finally {
+      button.classList.remove("dl-busy");
+      button.removeAttribute("aria-busy");
+    }
+  }
 
-/* Builds one download control per sound button. */
-function build() {
-var buttons = document.querySelectorAll('.soundboard-grid .sound-btn');
+  function build() {
+    document.querySelectorAll(".soundboard-grid button[onclick*='playSound(']").forEach((button) => {
+      if (button.closest(".sound-item")) return;
+      const url = urlOf(button);
+      if (!url) return;
 
-Array.prototype.forEach.call(buttons, function (btn) {
-if (btn.parentNode && btn.parentNode.classList.contains('sound-item')) return;
+      button.classList.add("sound-btn");
+      const wrap = document.createElement("div");
+      wrap.className = "sound-item";
+      button.parentNode.insertBefore(wrap, button);
+      wrap.appendChild(button);
 
-var url = urlOf(btn);
-if (!url) return;
+      const name = (button.textContent || "sound").trim();
+      const download = document.createElement("button");
+      download.type = "button";
+      download.className = "dl-btn dl-desktop";
+      download.title = "Download " + name;
+      download.setAttribute("aria-label", "Download " + name);
+      download.innerHTML = '<i class="bx bx-arrow-to-bottom" aria-hidden="true"></i>';
+      download.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        saveFile(url, fileNameOf(url), download);
+      });
+      wrap.appendChild(download);
 
-var name = btn.getAttribute('data-name') || 'sound';
-var file = fileNameOf(url);
+      const mobile = document.createElement("a");
+      mobile.className = "dl-btn dl-mobile";
+      mobile.href = blobPageUrl(url);
+      mobile.target = "_blank";
+      mobile.rel = "noopener noreferrer";
+      mobile.title = "Open " + name + " download page";
+      mobile.setAttribute("aria-label", "Open " + name + " download page");
+      mobile.innerHTML = '<i class="bx bx-arrow-to-bottom" aria-hidden="true"></i>';
+      wrap.appendChild(mobile);
+    });
+  }
 
-var wrap = document.createElement('div');
-wrap.className = 'sound-item';
-btn.parentNode.insertBefore(wrap, btn);
-wrap.appendChild(btn);
-
-/* Tablets and computers: download straight to the device. */
-var dl = document.createElement('button');
-dl.type = 'button';
-dl.className = 'dl-btn dl-desktop';
-dl.title = 'Download ' + name;
-dl.setAttribute('aria-label', 'Download ' + name);
-dl.innerHTML = '<i class="bx bx-arrow-to-bottom"></i>';
-dl.addEventListener('click', function (e) {
-e.preventDefault();
-e.stopPropagation();
-saveFile(url, file, dl);
-});
-wrap.appendChild(dl);
-
-/* Phones: same download icon, but it opens the file on GitHub to save. */
-var gh = document.createElement('a');
-gh.className = 'dl-btn dl-mobile';
-gh.href = blobPageUrl(url);
-gh.target = '_blank';
-gh.rel = 'noopener';
-gh.title = 'Download ' + name + ' from GitHub';
-gh.setAttribute('aria-label', 'Download ' + name + ' from GitHub');
-gh.innerHTML = '<i class="bx bx-arrow-to-bottom"></i>';
-wrap.appendChild(gh);
-});
-}
-
-if (document.readyState === 'loading') {
-document.addEventListener('DOMContentLoaded', build);
-} else {
-build();
-}
-
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", build, { once: true });
+  } else {
+    build();
+  }
 })();
